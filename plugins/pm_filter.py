@@ -660,8 +660,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         button = InlineKeyboardButton('🖥️ Watch Movie Online 🖥️', callback_data=f'generate_stream_link:{file_id}')
         # Create the inline keyboard markup with the button
         keyboard = InlineKeyboardMarkup([[button]])
-        await client.send_cached_media(
-            chat_id=query.from_user.id,
+        await client.send_cached_media(  chat_id=query.from_user.id,
             file_id=file_id,
             caption=f_caption,
             reply_markup=keyboard,
@@ -687,7 +686,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             reply_markup=reply_markup,
             parse_mode=enums.ParseMode.HTML
         )
-        await query.answer('♥️ Thank You LazyDeveloper ♥️')
+        awit query.answer('♥️ Thank You LazyDeveloper ♥️')
     elif query.data == "help":
         buttons = [[
             InlineKeyboardButton('Manual Filter', callback_data='manuelfilter'),
@@ -785,14 +784,14 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 quote=True,
                 disable_web_page_preview=True,
                 reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🖥️ Watch Movie Online 🖥️", url=lazy_stream)  # we download Link
-                                                    ]] # web stream Link
+                                                    ]]) # web stream Link
             )
             await query.message.reply_text(
                 text="•• ʟɪɴᴋ ɢᴇɴᴇʀᴀᴛᴇᴅ ☠︎⚔",
                 quote=True,
                 disable_web_page_preview=True,
                 reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🖥️ Watch Movie Online 🖥️", url=lazy_stream)  # we download Link
-                                                    ]]  # web stream Link
+                                                    ]])  # web stream Link
             )
         except Exception as e:
             print(e)  # print the error message
