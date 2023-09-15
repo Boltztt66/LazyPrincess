@@ -1304,8 +1304,8 @@ async def auto_filter(client, msg, spoll=False):
                                                                                                                                         [InlineKeyboardButton("❌Reject Req", callback_data=f"notify_user_req_rejected:{user_id}:{requested_movie}")]
                                                                                                                                         ]))
                 
-                l = await message.reply_text(text=f"I couldn't find anything related to that. Check your spelling"
-                                                                                                       )]])
+                l = await message.reply_text(text=f"I couldn't find anything related to that. Check your spelling",
+                                                                                                  callback_data="close_data")]])     
                 await asyncio.sleep(12)
                 await l.delete()    
                 if settings["spell_check"]:
