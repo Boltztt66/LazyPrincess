@@ -343,7 +343,7 @@ async def next_page(bot, query):
             InlineKeyboardButton("! Sᴇʟᴇᴄᴛ Lᴀɴɢᴜᴀɢᴇ !", callback_data=f"select_lang#{query.from_user.id}#{key}")
         ])    
     
-        btn.insert(0, [
+    btn.insert(0, [
             InlineKeyboardButton("📥 ʜᴏᴡ ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ 📥",
                                  url= 'https://t.me/Mxz7Movies/22')
         ])
@@ -1558,7 +1558,7 @@ async def auto_filter(client, msg, spoll=False):
             InlineKeyboardButton("! Sᴇʟᴇᴄᴛ Lᴀɴɢᴜᴀɢᴇ !", callback_data=f"select_lang#{query.from_user.id}#{key}")
         ])    
     
-        btn.insert(0, [
+    btn.insert(0, [
             InlineKeyboardButton("📥 ʜᴏᴡ ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ 📥",
                                  url= 'https://t.me/Mxz7Movies/22')
         ])
