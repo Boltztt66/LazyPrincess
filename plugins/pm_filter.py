@@ -339,11 +339,14 @@ async def next_page(bot, query):
                     for file in files
                 ]
 
-    btn.insert(0,
-        [ 
-	    InlineKeyboardButton(text="⚡ʜᴏᴡ ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ⚡", url='https://telegram.me/LazyDeveloper')
-        ] 
-    )
+    btn.insert(0, [
+            InlineKeyboardButton("! Sᴇʟᴇᴄᴛ Lᴀɴɢᴜᴀɢᴇ !", callback_data=f"select_lang#{query.from_user.id}#{key}")
+        ])    
+    
+        btn.insert(0, [
+            InlineKeyboardButton("📥 ʜᴏᴡ ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ 📥",
+                                 url= 'https://t.me/Mxz7Movies/22')
+        ])
 
     if 0 < offset <= 10:
         off_set = 0
@@ -377,31 +380,111 @@ async def next_page(bot, query):
         pass
     await query.answer()
 
-# Born to make history @LazyDeveloper !
-@Client.on_callback_query(filters.regex(r"^spolling"))
-async def advantage_spoll_choker(bot, query):
-    _, user, movie_ = query.data.split('#')
-    if int(user) != 0 and query.from_user.id != int(user):
-        return await query.answer("This Message is not for you dear. Don't worry you can send new one !", show_alert=True)
-    if movie_ == "close_spellcheck":
-        return await query.message.delete()
-    movies = SPELL_CHECK.get(query.message.reply_to_message.id)
-    if not movies:
-        return await query.answer("You are clicking on an old button which is expired.", show_alert=True)
-    movie = movies[(int(movie_))]
-    await query.answer('Checking for Movie in database...')
-    k = await manual_filters(bot, query.message, text=movie)
-    if k == False:
-        files, offset, total_results = await get_search_results(movie, offset=0, filter=True)
-        if files:
-            k = (movie, files, offset, total_results)
-            await auto_filter(bot, query, k)
+# https://telegram.dog/premiumbotz
+@Client.on_callback_query(filters.regex(r"^lang"))
+async def language_check(bot, query):
+    _, userid, language, key = query.data.split("#")
+    if int(userid) not in [query.from_user.id, 0]:
+        return await query.answer(script.ALRT_TXT.format(query.from_user.first_name), show_alert=True)
+    if language == "unknown":
+        return await query.answer("Sᴇʟᴇᴄᴛ ᴀɴʏ ʟᴀɴɢᴜᴀɢᴇ ғʀᴏᴍ ᴛʜᴇ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴs !", show_alert=True)
+    movie = KEYWORD.get(key)
+    KEYWORD[key] = movie
+    if not movie:
+        return await query.answer(script.OLD_ALRT_TXT.format(query.from_user.first_name), show_alert=True)
+    if language != "home":
+        movie = f"{movie} {language}"
+    files, offset, total_results = await get_search_results(movie, offset=0, filter=True)
+    if files:
+        settings = await get_settings(query.message.chat.id)
+        fileids = [file.file_id for file in files]
+        dbid = fileids[0]
+        fileids = "L_I_N_K".join(fileids)
+        await add_all_file(dbid, fileids)
+    
+        btn = [[
+            InlineKeyboardButton(
+                text=f"[{get_size(file.file_size)}] {replace_username(file.file_name)}",
+                callback_data=f"uvew_{file.file_id}"
+            ),
+            InlineKeyboardButton(
+                text=f"[{get_size(file.file_size)}] {replace_username(file.file_name)}",
+                callback_data=f"uvew_{file.file_id}"
+            )][:settings["button"]]
+            for file in files
+        ]
+        #btn.insert(0,
+        #           [
+        #               InlineKeyboardButton(
+        #                   f"๏ sᴇɴᴅ ᴀʟʟ ғɪʟᴇ ๏", url=await get_shortlink(f"https://telegram.me/{temp.U_NAME}?start=sendall_{dbid}", message.chat.id))
+        #           ]
+        #           )
+        
+        btn.insert(0, [
+            InlineKeyboardButton("! Sᴇʟᴇᴄᴛ Lᴀɴɢᴜᴀɢᴇ !", callback_data=f"select_lang#{query.from_user.id}#{key}")
+        ])    
+    
+        btn.insert(0, [
+            InlineKeyboardButton("📥 ʜᴏᴡ ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ 📥",
+                                 url= 'https://t.me/Mxz7Movies/22')
+        ])
+    
+        if offset != "":
+            key = f"{query.message.chat.id}-{query.message.id}"
+            BUTTONS[key] = movie 
+            req = query.from_user.id if query.from_user else 0
+            btn.append(
+                [InlineKeyboardButton(text=f"🗓 1/{math.ceil(int(total_results) / 10)}", callback_data="pages"),
+                 InlineKeyboardButton(text="ɴᴇxᴛ ⏩", callback_data=f"next_{req}_{key}_{offset}")]
+            )
         else:
-            k = await query.message.edit('😒 currently unavailable ! we are really sorry for inconvenience !\n Have patience ! our great admins will upload it as soon as possible !')
-            await asyncio.sleep(10)
-            await k.delete()
+            btn.append(
+                [InlineKeyboardButton(text="🗓 1/1", callback_data="pages")]
+            )
+        try:
+            await query.edit_message_reply_markup(
+                reply_markup=InlineKeyboardMarkup(btn)
+            )
+        except MessageNotModified:
+            pass
+        await query.answer()
+    else:
+        return await query.answer(f"Sᴏʀʀʏ, Nᴏ ғɪʟᴇs ғᴏᴜɴᴅ ғᴏʀ ʏᴏᴜʀ ᴏ̨ᴜᴇʀʏ {movie}.", show_alert=True)
+        
+# https://telegram.dog/premiumbotz    
+@Client.on_callback_query(filters.regex(r"^select_lang"))
+async def select_language(bot, query):
+    _, userid, key = query.data.split("#")
+    if int(userid) not in [query.from_user.id, 0]:
+        return await query.answer(script.ALRT_TXT.format(query.from_user.first_name), show_alert=True)
+    btn = [[
+        InlineKeyboardButton("Sᴇʟᴇᴄᴛ Yᴏᴜʀ Dᴇꜱɪʀᴇᴅ Lᴀɴɢᴜᴀɢᴇ ↓", callback_data=f"lang#{userid}#unknown#{key}")
+    ],[
+        InlineKeyboardButton("Eɴɢʟɪꜱʜ", callback_data=f"lang#{userid}#eng#{key}"),
+        InlineKeyboardButton("Tᴀᴍɪʟ", callback_data=f"lang#{userid}#tam#{key}"),
+        InlineKeyboardButton("Hɪɴᴅɪ", callback_data=f"lang#{userid}#hin#{key}")
+    ],[
+        InlineKeyboardButton("Kᴀɴɴᴀᴅᴀ", callback_data=f"lang#{userid}#kan#{key}"),
+        InlineKeyboardButton("Tᴇʟᴜɢᴜ", callback_data=f"lang#{userid}#tel#{key}")
+    ],[
+        InlineKeyboardButton("Mᴀʟᴀʏᴀʟᴀᴍ", callback_data=f"lang#{userid}#mal#{key}")
+    ],[
+        InlineKeyboardButton("Mᴜʟᴛɪ Aᴜᴅɪᴏ", callback_data=f"lang#{userid}#multi#{key}"),
+        InlineKeyboardButton("Dᴜᴀʟ Aᴜᴅɪᴏ", callback_data=f"lang#{userid}#dual#{key}")
+    ],[
+        InlineKeyboardButton("Gᴏ Bᴀᴄᴋ", callback_data=f"lang#{userid}#home#{key}")
+    ]]
+    try:
+        await query.edit_message_reply_markup(
+            reply_markup=InlineKeyboardMarkup(btn)
+        )
+    except MessageNotModified:
+        pass
+    await query.answer()
 
-# Born to make history @LazyDeveloper !
+
+# ------------------------------------------------------------------------------------------------- #
+
 @Client.on_callback_query()
 async def cb_handler(client: Client, query: CallbackQuery):
     data = query.data
@@ -1471,11 +1554,14 @@ async def auto_filter(client, msg, spoll=False):
                     for file in files
                 ]
 
-    btn.insert(0,
-        [ 
-	    InlineKeyboardButton(text="⚡ʜᴏᴡ to ᴅᴏᴡɴʟᴏᴀᴅ⚡", url='https://telegram.me/LazyDeveloper'),
-        ] 
-    )
+    btn.insert(0, [
+            InlineKeyboardButton("! Sᴇʟᴇᴄᴛ Lᴀɴɢᴜᴀɢᴇ !", callback_data=f"select_lang#{query.from_user.id}#{key}")
+        ])    
+    
+        btn.insert(0, [
+            InlineKeyboardButton("📥 ʜᴏᴡ ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ 📥",
+                                 url= 'https://t.me/Mxz7Movies/22')
+        ])
     if offset != "":
         key = f"{message.chat.id}-{message.id}"
         BUTTONS[key] = search
