@@ -1305,7 +1305,7 @@ async def auto_filter(client, msg, spoll=False):
                                                                                                                                         ]))
                 
                 l = await message.reply_text(text=f"I couldn't find anything related to that. Check your spelling"
-                                                                                                       )]]))
+                                                                                                       )]])
                 await asyncio.sleep(12)
                 await l.delete()    
                 if settings["spell_check"]:
