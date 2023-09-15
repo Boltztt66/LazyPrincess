@@ -616,7 +616,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 return
             else:
                 # Create the inline keyboard button with callback_data
-                button = InlineKeyboardButton('▶ Gen Stream / Download Link', callback_data=f'generate_stream_link:{file_id}')
+                button = InlineKeyboardButton('🖥️ Watch Movie Online 🖥️', callback_data=f'generate_stream_link:{file_id}')
                 # Create the inline keyboard markup with the button
                 keyboard = InlineKeyboardMarkup([[button]])
                 await client.send_cached_media(
@@ -626,7 +626,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                     reply_markup=keyboard,
                     protect_content=True if ident == "filep" else False 
                 )
-                await query.answer('Requested file has been sent to you privately. Check PM sweetheart ❤', show_alert=True)
+                await query.answer('Your Movie Sent 📤 To Your Bot Check Your Bot  ', show_alert=True)
         except UserIsBlocked:
             await query.answer('☣Unblock the bot sweetie!', show_alert=True)
         except PeerIdInvalid:
@@ -657,7 +657,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             f_caption = f"{title}"
         await query.answer()
         # Create the inline keyboard button with callback_data
-        button = InlineKeyboardButton('▶ Gen Stream / Download Link', callback_data=f'generate_stream_link:{file_id}')
+        button = InlineKeyboardButton('🖥️ Watch Movie Online 🖥️', callback_data=f'generate_stream_link:{file_id}')
         # Create the inline keyboard markup with the button
         keyboard = InlineKeyboardMarkup([[button]])
         await client.send_cached_media(
@@ -784,15 +784,15 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 text=f"•• ʟɪɴᴋ ɢᴇɴᴇʀᴀᴛᴇᴅ ꜰᴏʀ ɪᴅ #{user_id} \n•• ᴜꜱᴇʀɴᴀᴍᴇ : {username} \n\n•• ᖴᎥᒪᗴ Nᗩᗰᗴ : {fileName}",
                 quote=True,
                 disable_web_page_preview=True,
-                reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("web Download", url=lazy_download),  # we download Link
-                                                    InlineKeyboardButton('▶Stream online', url=lazy_stream)]])  # web stream Link
+                reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🖥️ Watch Movie Online 🖥️", url=lazy_stream)  # we download Link
+                                                    ]])  # web stream Link
             )
             await query.message.reply_text(
                 text="•• ʟɪɴᴋ ɢᴇɴᴇʀᴀᴛᴇᴅ ☠︎⚔",
                 quote=True,
                 disable_web_page_preview=True,
-                reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("web Download", url=lazy_download),  # we download Link
-                                                    InlineKeyboardButton('▶Stream online', url=lazy_stream)]])  # web stream Link
+                reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🖥️ Watch Movie Online 🖥️", url=lazy_stream)  # we download Link
+                                                    ]]  # web stream Link
             )
         except Exception as e:
             print(e)  # print the error message
@@ -818,7 +818,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 ]]
             reply_markup_lzdv = InlineKeyboardMarkup(btn_lzdv)
             reply_markup = InlineKeyboardMarkup(btn)
-            await client.send_message(int(user_id), f"😒 oops! sona, Your requested content named `{movie}` is not available right now, we are really trying our best to serve you this content, can you please provide us some more details related to your query `{movie}`, \nSend details to Admin : <a href='https://telegram.me/{ADMIN_USRNM}'>**Send here...**</a>\n\n❤ Thank You for the contribution", reply_markup=reply_markup)
+            await client.send_message(int(user_id), f"😒 oops!, Your requested content named `{movie}` is not available right now, we are really trying our best to serve you this content, can you please provide us some more details related to your query `{movie}`, \nSend details to Admin : <a href='https://telegram.me/{ADMIN_USRNM}'>**Send here...**</a>\n\n❤ Thank You for the contribution", reply_markup=reply_markup)
             await query.edit_message_text(text=f"- __**User notified successfully sweetie...✅**__\n\n⏳**Status** : Not Available 😒.\n🪪**UserID** : `{user_id}`\n🎞**Content** : `{movie}`\n\n\n🦋",reply_markup=reply_markup_lzdv)
         # Delete callback query message
             await query.answer()
