@@ -1300,7 +1300,7 @@ async def auto_filter(client, msg, spoll=False):
                                                                                                                                         [InlineKeyboardButton(text=f"🤞Request Recieved", callback_data=f"notify_user_req_rcvd:{user_id}:{requested_movie}")],
                                                                                                                                         [InlineKeyboardButton(text=f"✅Upload Done", callback_data=f"notify_userupl:{user_id}:{requested_movie}")],
                                                                                                                                         [InlineKeyboardButton(text=f"⚡Already Upl..", callback_data=f"notify_user_alrupl:{user_id}:{requested_movie}"),InlineKeyboardButton("🖊Spell Error", callback_data=f"notify_user_spelling_error:{user_id}:{requested_movie}")],
-                                                                                                                                        [InlineKeyboardButton(text=f"😒Not Available", callback_data=f"notify_user_not_avail:{user_id}:{requested_movie}")],
+                                                                                                                                     [InlineKeyboardButton(text=f"😒Not Available", callback_data=f"notify_user_not_avail:{user_id}:{requested_movie}")],
                                                                                                                                         [InlineKeyboardButton("❌Reject Req", callback_data=f"notify_user_req_rejected:{user_id}:{requested_movie}")]
                                                                                                                                         ]))
                 
@@ -1484,11 +1484,11 @@ async def auto_filter(client, msg, spoll=False):
 
     #waiting user to complete imdb process @LazyDeveloperr
     user = message.from_user
-    full_name = user.first_name + " " + user.last_name if user.last_name else user.first_name
+    full_name = user.first_name + " 🔎 " + user.last_name if user.last_name else user.first_name
     waiting_message = await message.reply_text(f"Setting up your request {full_name}...")
     await asyncio.sleep(1)
     await waiting_message.delete()
-    serve_message = await message.reply_text(f"🥰")
+    serve_message = await message.reply_text(f"")
     fetching_message = await message.reply_text(f"Fetching details from server {full_name}...")
 
     imdb = await get_poster(search, file=(files[0]).file_name) if settings["imdb"] else None
