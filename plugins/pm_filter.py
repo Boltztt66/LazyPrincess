@@ -1305,7 +1305,7 @@ async def auto_filter(client, msg, spoll=False):
                                                                                                                                         ]))
                 
                 l = await message.reply_text(text=f"I couldn't find anything related to that. Check your spelling",
-                                                                                                  callback_data="close_data")]])     
+                                                                                                  reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("━ • │▌║  ᗩᗪᗪ ʍɛ 2 ᑌᖇ Ǥᖇᗝᑌᑭ  ║▌│ • ━", url=f'',)]])     
                 await asyncio.sleep(12)
                 await l.delete()    
                 if settings["spell_check"]:
