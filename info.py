@@ -75,8 +75,8 @@ MOVIE_GROUP_USERNAME = environ.get('MOVIE_GROUP_USERNAME', "+qAxoGBvSc34yNmU1") 
 
 # Url Shortner
 URL_MODE = is_enabled((environ.get("URL_MODE","True")), False)
-URL_SHORTENR_WEBSITE = environ.get('URL_SHORTENR_WEBSITE', 'madx7link.wuaze.com') #Always use website url from api section 
-URL_SHORTNER_WEBSITE_API = environ.get('URL_SHORTNER_WEBSITE_API', '7d047ed48a917c490e08eb16e07e434533e09a0a')
+URL_SHORTENR_WEBSITE = environ.get('URL_SHORTENR_WEBSITE', 'madxlinks.c1.is') #Always use website url from api section 
+URL_SHORTNER_WEBSITE_API = environ.get('URL_SHORTNER_WEBSITE_API', '917f5e18e3a887e230398686795ec8bef0ce5128')
 LZURL_PRIME_USERS = [int(lazyurlers) if id_pattern.search(lazyurlers) else lazyurlers for lazyurlers in environ.get('LZURL_PRIME_USERS', '5965340120').split()]
 lazy_groups = environ.get('LAZY_GROUPS','')
 LAZY_GROUPS = [int(lazy_groups) for lazy_groups in lazy_groups.split()] if lazy_groups else None # ADD GROUP ID IN THIS VARIABLE
