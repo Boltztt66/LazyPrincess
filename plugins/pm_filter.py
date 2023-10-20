@@ -341,7 +341,7 @@ async def next_page(bot, query):
 
     btn.insert(0,
         [ 
-	    InlineKeyboardButton(text="📥 ʜᴏᴡ ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ 📥", url='https://t.me/Mad_cinema/229')
+	    InlineKeyboardButton(text="📥 ʜᴏᴡ ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ 📥", url='https://t.me/madxmovies07')
         ] 
     )
 
@@ -676,7 +676,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await query.answer()
     elif query.data == "start":
         buttons = [[
-            InlineKeyboardButton('📥 Download All Movies 📥', url='https://t.me/Mxx7Movies')
+            InlineKeyboardButton('📥 Download All Movies 📥', url='https://t.me/madxmovies07')
             ],[
             InlineKeyboardButton('Owner', url='https://t.me/Owner5g'),
             InlineKeyboardButton('Join Our Channel', url='https://t.me/Mxz7Movies')
