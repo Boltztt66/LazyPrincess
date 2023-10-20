@@ -22,7 +22,7 @@ BATCH_FILES = {}
 async def start(client, message):
     if message.chat.type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
         buttons = [[
-            InlineKeyboardButton('📥 Download All Movies 📥', url='https://t.me/Mxx7Movies')
+            InlineKeyboardButton('📥 Download All Movies 📥', url='https://t.me/madxmovies07')
             ],[
             InlineKeyboardButton('Owner', url='https://t.me/Owner5g'),
             InlineKeyboardButton('Join Our Channel', url='https://t.me/Mxz7Movies')
@@ -40,7 +40,7 @@ async def start(client, message):
         await client.send_message(LOG_CHANNEL, script.LOG_TEXT_P.format(message.from_user.id, message.from_user.mention))
     if len(message.command) != 2:
         buttons = [[
-            InlineKeyboardButton('📥 Download All Movies 📥', url='https://t.me/Mxx7Movies')
+            InlineKeyboardButton('📥 Download All Movies 📥', url='https://t.me/madxmovies07')
             ],[
             InlineKeyboardButton('Owner', url='https://t.me/Owner5g'),
             InlineKeyboardButton('Join Our Channel', url='https://t.me/Mxz7Movies')
@@ -88,7 +88,7 @@ async def start(client, message):
         return
     if len(message.command) == 2 and message.command[1] in ["subscribe", "error", "okay", "help"]:
         buttons = [[
-            InlineKeyboardButton('📥 Download All Movies 📥', url='https://t.me/Mxx7Movies')
+            InlineKeyboardButton('📥 Download All Movies 📥', url='https://t.me/madxmovies07')
             ],[
             InlineKeyboardButton('Owner', url='https://t.me/Owner5g'),
             InlineKeyboardButton('Join Our Channel', url='https://t.me/Mxz7Movies')
